@@ -1,3 +1,4 @@
+
 function getExternalJSPaths(){
     // path to load multiple files are to given here comma seperated
     const filePaths=[];
@@ -466,3 +467,78 @@ function hideShowItemDetailCredit() {
     }
     functions.updateJSON();
   }
+
+
+function customerType(){
+
+    const type = functions.getValue("DepSatTrxLeadsApplicant.customertype");
+    if (type === "Company"){
+        indivSect = "false";
+        compSect = "true";
+        addDom = "false";
+        rtDom = "false";
+        citDom = "false";
+        disDom = "false";
+        vilDom = "false";
+        posDom = "false";
+    } 
+    else{
+        indivSect = "true";
+        compSect = "false";
+        addDom = "true";
+        rtDom = "true";
+        citDom = "true";
+        disDom = "true";
+        vilDom = "true";
+        posDom = "true";
+    
+    }   
+    functions.setStyle("frame3","visible",indivSect);
+    functions.setStyle("frame35","visible",compSect);
+    functions.setStyle("DepSatTrxLeadsApplicant.addressdomicile","visible",addDom);
+    functions.setStyle("DepSatTrxLeadsApplicant.citydomicile","visible",citDom);
+    functions.setStyle("DepSatTrxLeadsApplicant.villagedomicile","visible",vilDom);
+    functions.setStyle("DepSatTrxLeadsApplicant.postalcodedomicile","visible",posDom);
+    functions.setStyle("DepSatTrxLeadsApplicant.rtrwdomicile","visible",rtDom);
+    functions.setStyle("DepSatTrxLeadsApplicant.districtdomicile","visible",disDom);
+    functions.updateJSON();
+}
+
+
+function copyDomicileAddress(){
+    addDom = functions.getValue("DepSatTrxLeadsApplicant.address");
+    citDom = functions.getValue("DepSatTrxLeadsApplicant.city");
+    vilDom = functions.getValue("DepSatTrxLeadsApplicant.village");
+    posDom = functions.getValue("DepSatTrxLeadsApplicant.postalcode");
+    rtDom = functions.getValue("DepSatTrxLeadsApplicant.rtrw");
+    disDom = functions.getValue("DepSatTrxLeadsApplicant.district");
+
+    functions.setValue("DepSatTrxLeadsApplicant.addressdomicile",addDom);
+    functions.setValue("DepSatTrxLeadsApplicant.citydomicile",citDom);
+    functions.setValue("DepSatTrxLeadsApplicant.villagedomicile",vilDom);
+    functions.setValue("DepSatTrxLeadsApplicant.postalcodedomicile",posDom);
+    functions.setValue("DepSatTrxLeadsApplicant.rtrwdomicile",rtDom);
+    functions.setValue("DepSatTrxLeadsApplicant.districtdomicile",disDom);
+}
+
+
+function domicileCheck(){
+    let domCB = functions.getValue("DepSatTrxLeadsApplicant.isdomicilesame");
+    if(domCB){
+        copyDomicileAddress();
+    }
+    functions.updateJSON();
+}
+
+
+function guarantorCheck(){
+    let guarantorCB = functions.getValue("DepsatTrxLeadsGuarantor.isguarantorneed");
+    if(guarantorCB){
+        functions.setStyle("frame15","visible","true");
+    }
+    else{
+        functions.setStyle("frame15","visible","false");
+    }
+    functions.updateJSON();
+}
+
